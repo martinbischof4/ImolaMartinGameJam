@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -117,7 +118,7 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.layer == 7)
         {
-            GameOver();
+            StartCoroutine(DelayGameOverScreen(1));
         }
     }
 
@@ -125,5 +126,13 @@ public class PlayerController : MonoBehaviour
     {
         PlayerPrefs.SetInt("score", _score.score);
         SceneManager.LoadScene("GameOver");
+    }
+
+    private IEnumerator DelayGameOverScreen(float seconds)
+    {
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(seconds);
+        Time.timeScale = 1f;
+        GameOver();
     }
 }

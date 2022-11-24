@@ -12,7 +12,15 @@ public class FunArea : MonoBehaviour
         if (collision.gameObject.layer == 3)
         {
             if(veryFunArea)
-                FindObjectOfType<EnemyController>().speedIncrement *= 25;
+            {
+                var enemy = FindObjectOfType<EnemyController>();
+                enemy.speedIncrement *= 35;
+                if (enemy.speed < 2)
+                {
+                    enemy.speed = 3f;
+                }
+            }
+
             gameObject.SetActive(false);
         }
     }

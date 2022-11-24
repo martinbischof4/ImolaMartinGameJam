@@ -10,19 +10,16 @@ public class EnemyController : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
 
     [SerializeField]
-    private float speed;
+    public float speed;
 
     [SerializeField]
     public float speedIncrement;
-
-    private Rigidbody2D _rigidbody2D;
 
     private PlayerController _player;
 
     private void Awake()
     {
         _player = FindObjectOfType<PlayerController>();
-        _rigidbody2D= GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -33,11 +30,11 @@ public class EnemyController : MonoBehaviour
 
         speed += speedIncrement;
 
-        if(speed < 2)
+        if(speed < 2.5)
         {
             _spriteRenderer.sprite = sprites[0];
         }
-        else if (speed < 4)
+        else if (speed < 4.5)
         {
             _spriteRenderer.sprite = sprites[1];
         }
