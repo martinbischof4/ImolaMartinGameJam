@@ -20,6 +20,9 @@ public class PlayerController : MonoBehaviour
     private bool _canJump = true;
     private LayerMask _playerMask;
 
+    public bool movingLeft { get; private set; }
+    public bool movingRight { get; private set; }
+
     private void Awake()
     {
         _collider= GetComponent<BoxCollider2D>();
@@ -36,12 +39,15 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
+        movingLeft = false;
+        movingRight = false;
         Vector2 input = Vector2.zero;
+
         if(Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
             input += Vector2.right;
         }
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
             input += Vector2.left;
         }
@@ -50,15 +56,14 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-
+        if (input.x > 0) movingRight = true;
+        else if (input.x < 0) movingLeft = true;
         transform.Translate(input * speed * Time.deltaTime);
-        //_rigidbody.velocity = input * speed * Time.deltaTime;
-        //_rigidbody.MovePosition((Vector2)transform.position + input * speed * Time.deltaTime);
     }
 
     private void Jump()
     {
-        if(_canJump && Input.GetKeyDown(KeyCode.W))
+        if(_canJump && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space)))
         {
             _canJump = false;
             _rigidbody.AddForce(Vector2.up * jumpHeight);
