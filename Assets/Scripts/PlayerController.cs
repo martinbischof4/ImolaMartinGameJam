@@ -28,8 +28,6 @@ public class PlayerController : MonoBehaviour
     private bool _canJump = true;
     private LayerMask _playerMask;
 
-    private bool isGameOver = false;
-
     public bool movingLeft { get; private set; }
     public bool movingRight { get; private set; }
 
@@ -47,16 +45,12 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (isGameOver)
-        {
-            movingLeft= false;
-            movingRight= false;
-            return;
-        }
-
         Move();
         Jump();
         CheckForGround();
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+            GameOver();
     }
 
     private void Move()
@@ -123,9 +117,13 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.layer == 7)
         {
-            isGameOver = true;
-            PlayerPrefs.SetInt("score", _score.score);
-            SceneManager.LoadScene("GameOver");
+            GameOver();
         }
+    }
+
+    private void GameOver()
+    {
+        PlayerPrefs.SetInt("score", _score.score);
+        SceneManager.LoadScene("GameOver");
     }
 }
