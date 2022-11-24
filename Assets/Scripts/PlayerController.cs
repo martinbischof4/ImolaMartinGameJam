@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
 
     private PickupManager _pickupManager;
 
+    private Animator _animator;
+
     [SerializeField]
     UIScore _score;
 
@@ -34,6 +36,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        _animator = GetComponent<Animator>();
         _collider= GetComponent<BoxCollider2D>();
         _rigidbody= GetComponent<Rigidbody2D>();
 
@@ -75,8 +78,23 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        if (input.x > 0) movingRight = true;
-        else if (input.x < 0) movingLeft = true;
+        if (input.x > 0)
+        {
+            movingRight = true;
+            _animator.SetBool("MovingLeft", false);
+            _animator.SetBool("MovingRight", true);
+        }
+        else if (input.x < 0)
+        {
+            movingLeft = true;
+            _animator.SetBool("MovingLeft", true);
+            _animator.SetBool("MovingRight", false);
+        }
+        else
+        {
+            _animator.SetBool("MovingLeft", false);
+            _animator.SetBool("MovingRight", false);
+        }
         transform.Translate(input * speed * Time.deltaTime);
     }
 
