@@ -7,9 +7,6 @@ public class PickupManager : MonoBehaviour
     [SerializeField]
     PickupSpawner _generator;
 
-    [SerializeField]
-    UIScore _score;
-
     private void Start()
     {
         GeneratePickup();
@@ -17,7 +14,6 @@ public class PickupManager : MonoBehaviour
 
     public void PickupPickedUp()
     {
-        _score.AddPoint();
         GeneratePickup();
     }
 

@@ -7,18 +7,23 @@ public class UIScore : MonoBehaviour
 {
     TextMeshProUGUI _scoreText;
 
-    private int _score;
+    public int score;
 
     private void Awake()
     {
         _scoreText = GetComponent<TextMeshProUGUI>();
-        _score = 0;
-        _scoreText.text = $"Score: {_score}";
+        ResetPoints();
+    }
+
+    public void ResetPoints()
+    {
+        score = 0;
+        _scoreText.text = $"Score: {score}";
     }
 
     public void AddPoint()
     {
-        _score++;
-        _scoreText.text = $"Score: {_score}";
+        score++;
+        _scoreText.text = $"Score: {score}";
     }
 }

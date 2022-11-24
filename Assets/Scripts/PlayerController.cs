@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -7,6 +8,9 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D _collider;
 
     private PickupManager _pickupManager;
+
+    [SerializeField]
+    UIScore _score;
 
     [SerializeField]
     private float speed;
@@ -26,7 +30,6 @@ public class PlayerController : MonoBehaviour
 
     public bool movingLeft { get; private set; }
     public bool movingRight { get; private set; }
-
 
 
     private void Awake()
@@ -96,13 +99,15 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.layer == 6)
         {
+            _score.AddPoint();
             _pickupManager.PickupPickedUp();
         }
 
         if (collision.gameObject.layer == 7)
         {
             isGameOver = true;
-            Debug.Log("GAME OVER");
+            PlayerPrefs.SetInt("score", _score.score);
+            SceneManager.LoadScene("GameOver");
         }
     }
 }
