@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private BoxCollider2D _collider;
 
+    private PickupManager _pickupManager;
+
     [SerializeField]
     private float speed;
     [SerializeField]
@@ -19,14 +21,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private bool _canJump = true;
     private LayerMask _playerMask;
+    private LayerMask _pickupMask;
+    private LayerMask _enemyMask;
 
     public bool movingLeft { get; private set; }
     public bool movingRight { get; private set; }
+
+
 
     private void Awake()
     {
         _collider= GetComponent<BoxCollider2D>();
         _rigidbody= GetComponent<Rigidbody2D>();
+
+        _pickupManager = FindObjectOfType<PickupManager>();
+
         _playerMask = LayerMask.GetMask("Player");
     }
 
@@ -75,4 +84,13 @@ public class PlayerController : MonoBehaviour
         var ray = Physics2D.BoxCast(transform.position, _collider.size, 0, Vector2.down, groundedCheckDistance, ~_playerMask);
         _canJump = ray ? true : false;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 6)
+        {
+            _pickupManager.PickupPickedUp();
+        }
+    }
+
 }
