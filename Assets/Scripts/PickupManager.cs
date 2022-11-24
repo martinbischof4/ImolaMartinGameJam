@@ -10,6 +10,11 @@ public class PickupManager : MonoBehaviour
     [SerializeField]
     UIScore _score;
 
+    private void Start()
+    {
+        GeneratePickup();
+    }
+
     public void PickupPickedUp()
     {
         _score.AddPoint();

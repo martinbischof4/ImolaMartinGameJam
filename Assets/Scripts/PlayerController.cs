@@ -21,8 +21,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private bool _canJump = true;
     private LayerMask _playerMask;
-    private LayerMask _pickupMask;
-    private LayerMask _enemyMask;
+
+    private bool isGameOver = false;
 
     public bool movingLeft { get; private set; }
     public bool movingRight { get; private set; }
@@ -41,6 +41,13 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (isGameOver)
+        {
+            movingLeft= false;
+            movingRight= false;
+            return;
+        }
+
         Move();
         Jump();
         CheckForGround();
@@ -91,6 +98,11 @@ public class PlayerController : MonoBehaviour
         {
             _pickupManager.PickupPickedUp();
         }
-    }
 
+        if (collision.gameObject.layer == 7)
+        {
+            isGameOver = true;
+            Debug.Log("GAME OVER");
+        }
+    }
 }
