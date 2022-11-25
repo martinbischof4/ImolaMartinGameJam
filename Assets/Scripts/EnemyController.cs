@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,7 +26,8 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        Vector2 direction = (_player.transform.position - transform.position).normalized;
+        Vector2 direction = (_player.transform.position - transform.position);
+        direction.Normalize();
         transform.Translate(direction * speed * Time.deltaTime);
 
         speed += speedIncrement;

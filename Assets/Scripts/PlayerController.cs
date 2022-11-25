@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
         {
             input += Vector2.left;
         }
-        var ray = Physics2D.BoxCast(transform.position, _collider.size, 0, input, groundedCheckDistance, ~_playerMask);
+        var ray = Physics2D.BoxCast(transform.position, _collider.size, 0, input, moveCheckDistance, ~_playerMask);
         if (ray)
         {
             return;
@@ -76,20 +76,14 @@ public class PlayerController : MonoBehaviour
         if (input.x > 0)
         {
             movingRight = true;
-            _animator.SetBool("MovingLeft", false);
-            _animator.SetBool("MovingRight", true);
         }
         else if (input.x < 0)
         {
             movingLeft = true;
-            _animator.SetBool("MovingLeft", true);
-            _animator.SetBool("MovingRight", false);
         }
-        else
-        {
-            _animator.SetBool("MovingLeft", false);
-            _animator.SetBool("MovingRight", false);
-        }
+
+        _animator.SetBool("MovingLeft", movingLeft);
+        _animator.SetBool("MovingRight", movingRight);
         transform.Translate(input * speed * Time.deltaTime);
     }
 

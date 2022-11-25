@@ -14,7 +14,7 @@ public class FunArea : MonoBehaviour
             if(veryFunArea)
             {
                 var enemy = FindObjectOfType<EnemyController>();
-                enemy.speedIncrement *= 35;
+                enemy.speedIncrement *= 20;
                 if (enemy.speed < 2)
                 {
                     enemy.speed = 3f;

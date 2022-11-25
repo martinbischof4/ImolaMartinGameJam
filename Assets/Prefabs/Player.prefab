@@ -100,10 +100,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e66660a4694047347b55fcdad1130381, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _score: {fileID: 0}
   speed: 10
   jumpHeight: 1200
   groundedCheckDistance: 0.01
-  moveCheckDistance: 0
+  moveCheckDistance: 0.01
   _canJump: 1
 --- !u!50 &1241600718854474625
 Rigidbody2D:
